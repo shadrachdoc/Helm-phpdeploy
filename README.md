@@ -28,17 +28,26 @@ Before a pod is being put in service to serve the request, readiness probe has b
 
 Liveliness probe has also been configured to check whether the pod is serving perfectly. If not, k8s will recreate the pod.
 
-# Prerequisites
-Install minikube  
-Install git
+# Prerequisites:
+ minikube  
+ git
+ Helm-Chart
+ Metric server 
+ 
+ #Metric server installation procedure:
+ 
+ Please use below command to enable metric server to monitor pods parametes 
+ 
+ `$ kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml`
 
 # Steps to deploy the application on k8s:
 
 1)	Download the source code from repo using below command 
-         `$ git clone https://github.com/shadrachdoc/Helm-phpdeploy.git`
+
+      `$ git clone https://github.com/shadrachdoc/Helm-phpdeploy.git`
 2)	Trigger below command to check helm chat 
-         `$ helm install <release name> --dry-run --debug ./apache/`
+      `$ helm install <release name> --dry-run --debug ./apache/`
 3)  Trigger helm chart to deploy the application 
-         `$ helm install -f /root/apache/values.yaml <release name> apache`
+      `$ helm install -f /root/apache/values.yaml <release name> apache`
          
 Note : please rename <release name> with your release name  
