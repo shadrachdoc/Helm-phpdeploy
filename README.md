@@ -7,7 +7,7 @@ The IP to reach the website is the IP of Ingress server. Under the ingress, serv
 
 Description of files:
 
-dockerfile: This is the Docker configuration that can be used to build the container image for the application. This docker runs service on port 80. Since port 80 is default port, non-root users cannot use port 80. Hence `$ setcap CAP_NET_BIND_SERVICE=+eip /usr/local/bin/ruby ` command is being used in dockerfile to make use of port 80.
+dockerfile: This is the Docker configuration that can be used to build the container image for the application. This docker runs service on port 80. Since port 80 is default port.
 
 deployment.yaml : This YAML configuration is to create Kubernetes deployment using the container image created by the dockerfile. The deployment defines a replica set of 2 pods and exposes port 80 to access the application.
 
@@ -24,7 +24,7 @@ Above all configured as helm3 chart
 # Strategy/Architecture:
                         Request --> Ingress (http://workernodeIP:80) --> K8S service --> K8S pods
 In this application deployment process, Kubernetes components such as Deployment, Service, Ingress, and probes are being used.And k8s deployment with replica set more than 2 and configured under k8s services using labels given in the deployment.
-Before a pod is being put in service to serve the request, readiness probe has been put in place to check whether the pod is ready to serve the request by hitting the /healthcheck endpoint.
+Before a pod is being put in service to serve the request, readiness probe has been put in place to check whether the pod is ready to serve the request by triggering url
 
 Liveliness probe has also been configured to check whether the pod is serving perfectly. If not, k8s will recreate the pod.
 
