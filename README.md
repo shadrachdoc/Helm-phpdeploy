@@ -35,7 +35,7 @@ Install git
 # Steps to deploy the application on k8s:
 
 1)	Download the source code from repo using below command 
-         `$ git clone https://github.com/shadrachdoc/httpserver.git`
+         `$ git clone https://github.com/shadrachdoc/Helm-phpdeploy.git`
 2)	Trigger below command to check helm chat 
          `$ helm install <release name> --dry-run --debug ./apache/`
 3)  Trigger helm chart to deploy the application 
