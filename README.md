@@ -55,7 +55,7 @@ Note : I have used below command to increase to site load  (please get ip addres
 
       `$ git clone https://github.com/shadrachdoc/Helm-phpdeploy.git`
 2)	Trigger below command to check helm chat 
-      `$ helm install <release name> --dry-run --debug ./apache/`
+      `$ helm install <release name> --dry-run --debug ./<directory>/`
 3)  Trigger helm chart to deploy the application 
       `$ helm install <release name> ./<directory>/`
          
