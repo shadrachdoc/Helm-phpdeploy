@@ -29,13 +29,30 @@ Before a pod is being put in service to serve the request, readiness probe has b
 Liveliness probe has also been configured to check whether the pod is serving perfectly. If not, k8s will recreate the pod.
 
 # Prerequisites:
- minikube  
- git
- Helm-Chart
- Metric server 
- Host entry needed in DNS server If you are testing in local then need to update in /etc/hosts with version release name and site name 
+ 1) minikube  
+ 2) git
+ 3) Helm-Chart
+ 4) Metric server 
+ 5) Host entry needed in DNS server If you are testing in local then need to update in /etc/hosts with version release name and site name 
+
+Note : I have used below command to increase to site load  (please get ip address from ingress and change it on below command)
+
+ `$ kubectl run -i --tty load-generator1 --rm --image=busybox --restart=Never -- /bin/sh  -c "echo 192.168.15.129 php1-examplewebtest.com >> /etc/hosts; while sleep 0.01; do wget -q -O- http://php1-examplewebtest.com; done"`
  
- <releaseName>.<siteName>.com  (which we will get it from NOTE)
+ <releaseName>.<siteName>.com  (which we will get it from NOTE) Example :
+ 
+ `$  root@ubuntu:~# helm install php3 ./apache/
+W0119 01:37:34.214701  320736 warnings.go:70] autoscaling/v2beta1 HorizontalPodAutoscaler is deprecated in v1.22+, unavailable in v1.25+; use autoscaling/v2beta2 HorizontalPodAutoscaler
+W0119 01:37:34.277410  320736 warnings.go:70] autoscaling/v2beta1 HorizontalPodAutoscaler is deprecated in v1.22+, unavailable in v1.25+; use autoscaling/v2beta2 HorizontalPodAutoscaler
+NAME: php3
+LAST DEPLOYED: Wed Jan 19 01:37:34 2022
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+NOTES:
+1. Get the application URL by running these commands:
+  http://php3-examplewebtest.com  `
+
  
  # Metric server installation procedure:
  
