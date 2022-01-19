@@ -1,39 +1,40 @@
 # Overview
- The repository contains the code to build the application (php) as a Docker container and deploy it in a Kubernetes cluster as a load balanced service.
-The application is presented as a http service. This simple php web server serves on port 80. When php web server load increase it will autoscale up to 10 pods. 
+ This repository is to deploy php application in a Kubernetes cluster as a load balanced service.
+The application is presented as a http service. This simple php web server serves on port 80. When there is a increase in nomber of request K8S will autoscale up to 10 pods. 
 
 
 The IP to reach the website is the IP of Ingress server. Under the ingress, service has been configured using the labels to reach the corresponding pods on port 80 which was deployed using deployment.
 
 Description of files:
 
-dockerfile: This is the Docker configuration that can be used to build the container image for the application. This docker runs service on port 80. Since port 80 is default port.
-
-deployment.yaml : This YAML configuration is to create Kubernetes deployment using the container image created by the dockerfile. The deployment defines a replica set of 2 pods and exposes port 80 to access the application.
+deployment.yaml : This YAML configuration is to create Kubernetes deployment using the php:apache container image. The deployment defines a replica set of 2 pods and exposes port 80 to access the application.
 
 service.yaml : This YAML configuration is to create Kubernetes service to load balance the requests to the pods created by the deployment.
 
-ingress.yaml: This YAML configuration is to create Kubernetes ingress service, to get the request on port 80 of the worker node IP and pass on to the service.
+ingress.yaml: This YAML configuration is to create Kubernetes ingress service, to get the request on port 80 of the ingress IP and pass on to the service.
 
-Above all configured as helm3 chart 
+
+All the configurations are configured in helm chart.
+
 
 
 # Assumptions
 •	Using a Linux system as the host for running the minikube cluster.
 
 # Strategy/Architecture:
-                        Request --> Ingress (http://workernodeIP:80) --> K8S service --> K8S pods
-In this application deployment process, Kubernetes components such as Deployment, Service, Ingress, and probes are being used.And k8s deployment with replica set more than 2 and configured under k8s services using labels given in the deployment.
-Before a pod is being put in service to serve the request, readiness probe has been put in place to check whether the pod is ready to serve the request by triggering url
+                        Request --> Ingress (http://ingressIP:80) --> K8S service --> K8S pods
+In this application deployment process, Kubernetes components such as Deployment, Service, Ingress, and configMap are being used.And k8s deployment with replica set 1 and configured under k8s services using labels given in the deployment.
 
-Liveliness probe has also been configured to check whether the pod is serving perfectly. If not, k8s will recreate the pod.
 
 # Prerequisites:
  1) minikube  
  2) git
  3) Helm-Chart
  4) Metric server 
- 5) Host entry needed in DNS server If you are testing in local then need to update in /etc/hosts with version release name and site name 
+ 5) Host entry needed in DNS server If you are testing in localhost then need to update in /etc/hosts with release name and site name 
+
+   For Example : If ingress ip is 192.168.15.129  (to get ingress ip: Kubectl get ingress) and release name is php1, siteName (values.yaml) is examplewebtest.com  then below command needs to be executed in the localhost 
+   echo 192.168.15.129 php1-examplewebtest.com >> /etc/hosts
 
 Note : I have used below command to increase to site load  (please get ip address from ingress and change it on below command)
 
@@ -41,9 +42,7 @@ Note : I have used below command to increase to site load  (please get ip addres
  
     <releaseName>.<siteName>.com  (which we will get it from NOTE) 
  
- 
-
- 
+  
  # Metric server installation procedure:
  
  Please use below command to enable metric server to monitor pods parametes 
@@ -58,6 +57,6 @@ Note : I have used below command to increase to site load  (please get ip addres
 2)	Trigger below command to check helm chat 
       `$ helm install <release name> --dry-run --debug ./apache/`
 3)  Trigger helm chart to deploy the application 
-      `$ helm install -f /root/apache/values.yaml <release name> apache`
+      `$ helm install <release name> ./<directory>/`
          
 Note : please rename <release name> with your release name  
