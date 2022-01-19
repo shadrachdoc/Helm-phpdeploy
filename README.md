@@ -62,3 +62,12 @@ Note : I have used below command to increase to site load  (please get ip addres
       `$ helm install <release name> ./Helm-phpdeploy/`
          
 Note : please rename <release name> with your release name  
+
+ # Helm Upgrade
+ After updating .yaml file in helm chart use below commands to upgrade
+  helm upgrade <release name> ./Helm-phpdeploy/
+ 
+  Below command to Verify Upgrade
+ 
+   `helm list -a`
+ 
