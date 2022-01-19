@@ -1,0 +1,27 @@
+apiVersion: v1
+data:
+  index.php: |
+    <html>
+    <head>
+     <title>PHP Test</title>
+    </head>
+    <body>
+    <?php echo '<p>Hello World</p>'; ?>
+    <?php
+      $x = 0.0001;
+      for ($i = 0; $i <= 1000000; $i++) {
+        $x += sqrt($x);
+      }
+      echo "OK!";
+    ?>
+    </body>
+    </html>
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-indexphp
+  labels:
+    {{- include "apache.labels" . | nindent 4 }}
+  {{- with .Values.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}

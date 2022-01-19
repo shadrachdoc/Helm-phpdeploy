@@ -37,7 +37,7 @@ spec:
     {{- end }}
   {{- end }}
   rules:
-    - host: {{ .Release.Name }}-test.local
+    - host: {{ .Release.Name }}-{{ .Values.siteName }}
     {{- range .Values.ingress.hosts }}
       http:
         paths:

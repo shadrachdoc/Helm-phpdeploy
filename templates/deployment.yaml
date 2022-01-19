@@ -24,9 +24,17 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+          - name: index
+            mountPath: /var/www/html/index.php
+            subPath: index.php
           ports:
             - name: http
               containerPort: 80
               protocol: TCP
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        - name: index
+          configMap: 
+            name: {{ .Release.Name }}-indexphp
