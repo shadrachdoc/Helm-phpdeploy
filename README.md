@@ -33,8 +33,11 @@ Liveliness probe has also been configured to check whether the pod is serving pe
  git
  Helm-Chart
  Metric server 
+ Host entry needed in DNS server If you are testing in local then need to update in /etc/hosts with version release name and site name 
  
- #Metric server installation procedure:
+ <releaseName>.<siteName>.com  (which we will get it from NOTE)
+ 
+ # Metric server installation procedure:
  
  Please use below command to enable metric server to monitor pods parametes 
  
