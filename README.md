@@ -34,13 +34,15 @@ In this application deployment process, Kubernetes components such as Deployment
  5) Host entry needed in DNS server If you are testing in localhost then need to update in /etc/hosts with release name and site name 
 
    For Example : If ingress ip is 192.168.15.129  (to get ingress ip: Kubectl get ingress) and release name is php1, siteName (values.yaml) is examplewebtest.com  then below command needs to be executed in the localhost 
-   echo 192.168.15.129 php1-examplewebtest.com >> /etc/hosts
+   ` echo 192.168.15.129 php1-examplewebtest.com >> /etc/hosts`
 
 Note : I have used below command to increase to site load  (please get ip address from ingress and change it on below command)
 
- `$ kubectl run -i --tty load-generator1 --rm --image=busybox --restart=Never -- /bin/sh  -c "echo 192.168.15.129 php1-examplewebtest.com >> /etc/hosts; while sleep 0.01; do wget -q -O- http://php1-examplewebtest.com; done"`
+ `$ kubectl run -i --tty load-generator1 --rm --image=busybox --restart=Never -- /bin/sh  -c "echo 172.17.0.28 php1-examplewebtest.com >> /etc/hosts; while sleep 0.01; do wget -q -O- http://php1-examplewebtest.com; done"`
  
     <releaseName>.<siteName>.com  (which we will get it from NOTE) 
+    
+    Note: I have used php extra code for more CPU utilization when you trigger above command  
  
   
  # Metric server installation procedure:
@@ -55,8 +57,8 @@ Note : I have used below command to increase to site load  (please get ip addres
 
       `$ git clone https://github.com/shadrachdoc/Helm-phpdeploy.git`
 2)	Trigger below command to check helm chat 
-      `$ helm install <release name> --dry-run --debug ./<directory>/`
+      `$ helm install <release name> --dry-run --debug ./Helm-phpdeploy/`
 3)  Trigger helm chart to deploy the application 
-      `$ helm install <release name> ./<directory>/`
+      `$ helm install <release name> ./Helm-phpdeploy/`
          
 Note : please rename <release name> with your release name  
