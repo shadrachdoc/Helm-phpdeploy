@@ -41,19 +41,7 @@ Note : I have used below command to increase to site load  (please get ip addres
  
     <releaseName>.<siteName>.com  (which we will get it from NOTE) 
  
- Example :
  
- ` root@ubuntu:~# helm install php3 ./apache/
-W0119 01:37:34.214701  320736 warnings.go:70] autoscaling/v2beta1 HorizontalPodAutoscaler is deprecated in v1.22+, unavailable in v1.25+; use autoscaling/v2beta2 HorizontalPodAutoscaler
-W0119 01:37:34.277410  320736 warnings.go:70] autoscaling/v2beta1 HorizontalPodAutoscaler is deprecated in v1.22+, unavailable in v1.25+; use autoscaling/v2beta2 HorizontalPodAutoscaler
-NAME: php3
-LAST DEPLOYED: Wed Jan 19 01:37:34 2022
-NAMESPACE: default
-STATUS: deployed
-REVISION: 1
-NOTES:
-1. Get the application URL by running these commands:
-  http://php3-examplewebtest.com`
 
  
  # Metric server installation procedure:
