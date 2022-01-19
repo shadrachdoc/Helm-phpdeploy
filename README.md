@@ -39,9 +39,11 @@ Note : I have used below command to increase to site load  (please get ip addres
 
  `$ kubectl run -i --tty load-generator1 --rm --image=busybox --restart=Never -- /bin/sh  -c "echo 192.168.15.129 php1-examplewebtest.com >> /etc/hosts; while sleep 0.01; do wget -q -O- http://php1-examplewebtest.com; done"`
  
- <releaseName>.<siteName>.com  (which we will get it from NOTE) Example :
+    <releaseName>.<siteName>.com  (which we will get it from NOTE) 
  
- `$  root@ubuntu:~# helm install php3 ./apache/
+ Example :
+ 
+ ` root@ubuntu:~# helm install php3 ./apache/
 W0119 01:37:34.214701  320736 warnings.go:70] autoscaling/v2beta1 HorizontalPodAutoscaler is deprecated in v1.22+, unavailable in v1.25+; use autoscaling/v2beta2 HorizontalPodAutoscaler
 W0119 01:37:34.277410  320736 warnings.go:70] autoscaling/v2beta1 HorizontalPodAutoscaler is deprecated in v1.22+, unavailable in v1.25+; use autoscaling/v2beta2 HorizontalPodAutoscaler
 NAME: php3
@@ -51,7 +53,7 @@ STATUS: deployed
 REVISION: 1
 NOTES:
 1. Get the application URL by running these commands:
-  http://php3-examplewebtest.com  `
+  http://php3-examplewebtest.com`
 
  
  # Metric server installation procedure:
